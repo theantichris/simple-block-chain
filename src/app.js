@@ -41,17 +41,17 @@ class Blockchain {
 
     this.chain.push(newBlock)
   }
-}
 
-const isValidChain = () => {
-  for (let i = 1; i < this.chain.length; i++) {
-    const currentBlock = this.chain[i]
-    const previousBlock = this.chain[i - 1]
+  isValid() {
+    for (let i = 1; i < this.chain.length; i++) {
+      const currentBlock = this.chain[i]
+      const previousBlock = this.chain[i - 1]
 
-    if (currentBlock.hash !== currentBlock.calculateHash()) return false
+      if (currentBlock.hash !== currentBlock.calculateHash()) return false
 
-    if (currentBlock.previousHash !== previousBlock.hash) return false
+      if (currentBlock.previousHash !== previousBlock.hash) return false
 
-    return true
+      return true
+    }
   }
 }
