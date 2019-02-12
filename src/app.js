@@ -1,4 +1,4 @@
-import sha256 from 'crypto-js'
+var sha256 = require('crypto-js/sha256')
 
 class Block {
   constructor(index, data, previousHash = '') {
@@ -9,14 +9,16 @@ class Block {
     this.timestamp = new Date().toString()
     this.nonce = 0
 
-    this.hash = this.calculateHash
+    this.hash = this.calculateHash()
   }
 
   calculateHash() {
-    const jsonData = JSON.stringify(this.data)
-
     return sha256(
-      this.index + this.previousHash + this.timestamp + jsonData + this.nonce
+      this.index +
+        this.previousHash +
+        this.timestamp +
+        JSON.stringify(this.data) +
+        this.nonce
     ).toString()
   }
 }
@@ -47,11 +49,25 @@ class Blockchain {
       const currentBlock = this.chain[i]
       const previousBlock = this.chain[i - 1]
 
-      if (currentBlock.hash !== currentBlock.calculateHash()) return false
+      if (currentBlock.hash !== currentBlock.calculateHash()) {
+        console.log('The current block has an invalid hash')
+        console.log('Hash: ' + currentBlock.hash)
+        console.log('Calculated: ' + currentBlock.calculateHash())
 
-      if (currentBlock.previousHash !== previousBlock.hash) return false
+        return false
+      }
+
+      if (currentBlock.previousHash !== previousBlock.hash) {
+        console.error('The previous block\'s hash doesn\'t match current block.')
+        return false
+      }
 
       return true
     }
   }
 }
+
+const chain = new Blockchain()
+chain.addBlock(new Block(1, 'Second block'))
+
+chain.isValid()
