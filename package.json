@@ -1,0 +1,9 @@
+{
+  "name": "simple-blockchain",
+  "version": "0.0.1",
+  "description": "Just a simple blockchain",
+  "main": "index.js",
+  "repository": "https://github.com/theantichris/simple-blockchain.git",
+  "author": "Christopher Lamm <chris@theantichris.com>",
+  "license": "MIT"
+}
