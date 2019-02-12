@@ -5,5 +5,9 @@
   "main": "index.js",
   "repository": "https://github.com/theantichris/simple-blockchain.git",
   "author": "Christopher Lamm <chris@theantichris.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2"
+  }
 }
