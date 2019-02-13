@@ -25,40 +25,40 @@ class Block {
 
 class Blockchain {
   constructor() {
-    this.chain = [this.createGenesis()]
+    this.chain = [new Block(0, 'Genesis block', 0)]
   }
 
-  createGenesis() {
-    const block = new Block(0, 'Genesis block', 0)
+  addBlock(data) {
+    const newBlock = new Block(
+      this.chain.length + 1,
+      data,
+      this.getLastBlock().hash
+    )
 
-    return block
+    this.chain.push(newBlock)
   }
 
   getLastBlock() {
     return this.chain[this.chain.length - 1]
   }
 
-  addBlock(newBlock) {
-    newBlock.previousHash = this.getLastBlock().hash
-
-    this.chain.push(newBlock)
-  }
-
   isValid() {
     for (let i = 1; i < this.chain.length; i++) {
       const currentBlock = this.chain[i]
-      const previousBlock = this.chain[i - 1]
 
       if (currentBlock.hash !== currentBlock.calculateHash()) {
-        console.log('The current block has an invalid hash')
-        console.log('Hash: ' + currentBlock.hash)
-        console.log('Calculated: ' + currentBlock.calculateHash())
+        console.error('Block ' + i + ' has an invalid hash')
+        console.error('Hash: ' + currentBlock.hash)
+        console.error('Calculated: ' + currentBlock.calculateHash())
 
         return false
       }
 
+      const previousBlock = this.chain[i - 1]
+
       if (currentBlock.previousHash !== previousBlock.hash) {
-        console.error('The previous block\'s hash doesn\'t match current block.')
+        console.error()
+
         return false
       }
 
@@ -68,6 +68,6 @@ class Blockchain {
 }
 
 const chain = new Blockchain()
-chain.addBlock(new Block(1, 'Second block'))
+chain.addBlock('Second block')
 
 chain.isValid()
