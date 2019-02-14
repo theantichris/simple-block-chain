@@ -1,7 +1,12 @@
 const Blockchain = require('./Blockchain')
 
 const chain = new Blockchain()
-chain.addBlock('Second block')
 
-if (chain.isValid()) console.log('Chain is valid.')
-else console.log('Chain is invalid')
+console.log('Mining block...')
+chain.addBlock('This is block 1')
+
+console.log('Mining block')
+chain.addBlock('This is block 1')
+
+console.log(JSON.stringify(chain, null, 4))
+console.log('Is blockchain valid? ' + chain.isValid().toString())
